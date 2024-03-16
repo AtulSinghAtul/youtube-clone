@@ -6,6 +6,7 @@ import LoginPage from "./pages/loginpage/LoginPage";
 import { useState } from "react";
 import "./_app.scss";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import SignupPage from "./pages/SignupPage";
 
 function Layout({ children }) {
   const [toggleSidebar, setToggleSidebar] = useState(false);
@@ -41,6 +42,7 @@ function App() {
             }
           />
           <Route path={"/login"} element={<LoginPage />} />
+          <Route path={"/signup"} element={<SignupPage />} />
           <Route
             path="/search"
             element={
