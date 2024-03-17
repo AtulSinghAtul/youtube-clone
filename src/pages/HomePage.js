@@ -9,8 +9,8 @@ const HomePage = () => {
       <Container>
         <CategoreyBar />
         <Row>
-          {[...new Array(20)].map(() => (
-            <Col lg={3} md={4}>
+          {[...new Array(20)].map((index) => (
+            <Col lg={3} md={4} key={index}>
               <Video />
             </Col>
           ))}

@@ -32,3 +32,58 @@
     object-fit: contain;
   }
 }
+
+.loginForm {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: #fb1e1e5f;
+
+  form {
+    padding: 10px 50px;
+    height: fit-content;
+    background-color: #68686851;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    border-radius: 10px;
+  }
+  form > input {
+    color: #fff;
+    padding: 15px 70px;
+    border-radius: 5px;
+    background-color: #080808b3;
+    outline: none;
+    border: none;
+    margin-bottom: 30px;
+  }
+  form > button {
+    color: #fff;
+    background-color: #75b30266;
+    padding: 8px 25px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  p {
+    font-size: 40px;
+  }
+  span {
+    cursor: pointer;
+  }
+
+  .signin_text {
+    color: #f85a17fb;
+  }
+  .err_messg {
+    font-size: 15px;
+    color: rgb(251, 13, 13);
+    width: 300px;
+  }
+}

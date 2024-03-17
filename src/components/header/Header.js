@@ -4,9 +4,32 @@ import { FaBars } from "react-icons/fa";
 import { AiOutlineSearch } from "react-icons/ai";
 import { MdNotifications, MdApps } from "react-icons/md";
 import "./_header.scss";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { signOut } from "firebase/auth";
+import { auth } from "../../utility/firebase";
+import { removeAuthData } from "../../utility/slices/authSlice";
+import { PiUserCirclePlusLight, PiUserCircleMinusLight } from "react-icons/pi";
 
 const Header = ({ handleToggleSidebar }) => {
-  // console.log(handleToggleSidebar());
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const authUser = useSelector((store) => store?.auth?.uid);
+  console.log(authUser);
+
+  function handleSignOut() {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        dispatch(removeAuthData());
+        navigate("/login");
+      })
+      .catch((error) => {
+        // An error happened.
+        console.log(error);
+      });
+  }
+
   return (
     <div className="header">
       <FaBars
@@ -32,12 +55,20 @@ const Header = ({ handleToggleSidebar }) => {
       <div className="header__icons">
         <MdNotifications size={28} />
         <MdApps size={28} />
-        <img
-          src={
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQY5MtwJEBmtZXJ12uY2OV3LLT-Z7AfqAuCQ&usqp=CAU"
-          }
-          alt="avatar"
-        />
+
+        {authUser?.uid ? (
+          <span className="login_btn" onClick={handleSignOut}>
+            <PiUserCircleMinusLight />
+            Logout
+          </span>
+        ) : (
+          <Link to={"/login"}>
+            <span className="login_btn">
+              <PiUserCirclePlusLight />
+              Login
+            </span>{" "}
+          </Link>
+        )}
       </div>
     </div>
   );

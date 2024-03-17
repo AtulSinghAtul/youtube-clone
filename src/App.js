@@ -5,10 +5,12 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/loginpage/LoginPage";
 import { useState } from "react";
 import "./_app.scss";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SignupPage from "./pages/SignupPage";
+import { Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Layout({ children }) {
+  const authUser = useSelector((store) => store?.auth?.uid);
+  console.log(authUser);
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const handleToggleSidebar = () => setToggleSidebar((value) => !value);
 
@@ -31,36 +33,34 @@ function Layout({ children }) {
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path={"/"}
-            element={
-              <Layout>
-                <HomePage />
-              </Layout>
-            }
-          />
-          <Route path={"/login"} element={<LoginPage />} />
-          <Route path={"/signup"} element={<SignupPage />} />
-          <Route
-            path="/search"
-            element={
-              <Layout>
-                <h1>This is search page</h1>
-              </Layout>
-            }
-          />
-          <Route
-            path="*"
-            element={
-              <Layout>
-                <HomePage />
-              </Layout>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route
+          path={"/"}
+          element={
+            <Layout>
+              <HomePage />
+            </Layout>
+          }
+        />
+
+        <Route
+          path="/search"
+          element={
+            <Layout>
+              <h1>This is search page</h1>
+            </Layout>
+          }
+        />
+        <Route path={"/login"} element={<LoginPage />} />
+        <Route
+          path="*"
+          element={
+            <Layout>
+              <HomePage />
+            </Layout>
+          }
+        />
+      </Routes>
     </>
   );
 }
