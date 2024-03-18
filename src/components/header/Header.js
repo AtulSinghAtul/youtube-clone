@@ -14,7 +14,9 @@ import { PiUserCirclePlusLight, PiUserCircleMinusLight } from "react-icons/pi";
 const Header = ({ handleToggleSidebar }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const authUser = useSelector((store) => store?.auth?.uid);
+  // const { uid, email, displayName } = authUser;
   console.log(authUser);
 
   function handleSignOut() {
@@ -22,6 +24,10 @@ const Header = ({ handleToggleSidebar }) => {
       .then(() => {
         // Sign-out successful.
         dispatch(removeAuthData());
+        //* remove session storage
+        sessionStorage.removeItem("y_uid");
+        sessionStorage.removeItem("y_displayName");
+        sessionStorage.removeItem("y_email");
         navigate("/login");
       })
       .catch((error) => {

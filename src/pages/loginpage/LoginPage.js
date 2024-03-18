@@ -12,7 +12,6 @@ import { auth } from "../../utility/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addAuthData, removeAuthData } from "../../utility/slices/authSlice";
-import { provider } from "../../utility/googleAuth";
 import { validate } from "../../utility/validate";
 
 const LoginPage = () => {
@@ -32,6 +31,11 @@ const LoginPage = () => {
             uid: { uid: uid, email: email, displayName: displayName },
           })
         );
+
+        //* stored user data into session storage
+        sessionStorage.setItem("y_uid", uid);
+        sessionStorage.setItem("y_email", email);
+        sessionStorage.setItem("y_displayName", displayName);
         navigate("/");
       } else {
         // User is signed out
@@ -46,9 +50,8 @@ const LoginPage = () => {
   /////////////////////////////////////////////////////
   function handleSigninUser() {
     const message = validate(email, password);
-    console.log(message);
-    console.log(errorMessage);
     setErrorMessage(message);
+    //* conditional rendering
     if (message) return;
 
     // sign in and signup logic
@@ -79,6 +82,9 @@ const LoginPage = () => {
 
   /////////////////////////////////////////////////////
   function handleGoogleAuth() {
+    const provider = new GoogleAuthProvider();
+    provider.addScope("https://www.googleapis.com/auth/youtube.force-ssl");
+
     signInWithPopup(auth, provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.

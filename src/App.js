@@ -7,6 +7,8 @@ import { useState } from "react";
 import "./_app.scss";
 import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
+// import { MdPrivateConnectivity } from "react-icons/md";
+import PrivateRoutes from "./utility/PrivateRoutes";
 
 function Layout({ children }) {
   const authUser = useSelector((store) => store?.auth?.uid);
@@ -34,29 +36,31 @@ function App() {
   return (
     <>
       <Routes>
-        <Route
-          path={"/"}
-          element={
-            <Layout>
-              <HomePage />
-            </Layout>
-          }
-        />
+        <Route element={<PrivateRoutes />}>
+          <Route
+            path={"/"}
+            element={
+              <Layout>
+                <HomePage />
+              </Layout>
+            }
+          />
+          <Route
+            path="/search"
+            element={
+              <Layout>
+                <h1>This is search page</h1>
+              </Layout>
+            }
+          />
+        </Route>
 
-        <Route
-          path="/search"
-          element={
-            <Layout>
-              <h1>This is search page</h1>
-            </Layout>
-          }
-        />
         <Route path={"/login"} element={<LoginPage />} />
         <Route
           path="*"
           element={
             <Layout>
-              <HomePage />
+              <LoginPage />
             </Layout>
           }
         />

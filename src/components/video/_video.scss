@@ -38,10 +38,10 @@
     @include line-clamp(1);
   }
 
-  &__details {
+  &__detailes {
     display: flex;
-    background: #e2dcdc;
-    align-items: center;
+    gap: 2px;
+    align-items: start;
   }
   &__channel {
     display: flex;

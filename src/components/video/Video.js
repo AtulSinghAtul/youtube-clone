@@ -1,30 +1,62 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./_video.scss";
 import { AiFillEye } from "react-icons/ai";
+import numeral from "numeral";
+import moment from "moment";
 
-const Video = () => {
+const Video = ({ item }) => {
+  const [channelDp, setChannelDp] = useState(null);
+
+  const {
+    contentDetails: { duration },
+    snippet: {
+      title,
+      channelTitle,
+      channelId,
+
+      thumbnails: {
+        medium: { url },
+      },
+      publishedAt,
+    },
+  } = item;
+
+  //* changed time stamp into minute and second
+  const seconds = moment.duration(duration).asSeconds();
+  const _duration = moment.utc(seconds * 1000).format("mm:ss");
+
+  useEffect(() => {
+    channelIcon();
+  }, []);
+  async function channelIcon() {
+    const data = await fetch(
+      "https://youtube.googleapis.com/youtube/v3/channels?part=snippet&id=" +
+        channelId +
+        "&key=AIzaSyC8-LXLIfUSG33GsyGmi9QPSt48RaMJ_jE"
+    );
+
+    const json = await data.json();
+    setChannelDp(json?.items[0]?.snippet?.thumbnails?.medium?.url);
+  }
+
+  // console.log(item);
   return (
     <div className="video ">
       <div className="video__top">
-        <img
-          src="https://i.ytimg.com/vi/vLV4DuQixME/hq720.jpg?sqp=-oaymwEcCK4FEIIDSEbyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB57yjwBQC8p3m1Auhf2AeVElhH-w"
-          alt="thumbnail-img"
-        />
-        <span className="video__top__duration">05:43</span>
+        <img src={url} alt="thumbnail-img" />
+        <span className="video__top__duration">{_duration}</span>
       </div>
-      <title className="video__title">
-        Vigdiyan Heeran - Full Video | Honey 3.0 | Yo Yo Honey Singh & Urvashi
-        Rautela | Zee Music Originals
-      </title>
+      <title className="video__title">{title}</title>
       <div className="video__detailes">
         <span>
-          <AiFillEye /> 5m views
+          <AiFillEye /> {numeral(+item.statistics.viewCount).format("0.a")}{" "}
+          views •
         </span>
-        <span>5 dayes ago</span>
+        <span>{moment(publishedAt).fromNow()}</span>
       </div>
       <div className="video__channel">
-        <img src="" alt="" />
-        <p>Zee Music Company</p>
+        <img src={channelDp} alt="channel-dp" />
+        <p>{channelTitle}</p>
       </div>
     </div>
   );
