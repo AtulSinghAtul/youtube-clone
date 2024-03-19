@@ -17,7 +17,7 @@ const Header = ({ handleToggleSidebar }) => {
 
   const authUser = useSelector((store) => store?.auth?.uid);
   // const { uid, email, displayName } = authUser;
-  console.log(authUser);
+  // console.log(authUser);
 
   function handleSignOut() {
     signOut(auth)

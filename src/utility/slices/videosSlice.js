@@ -4,7 +4,7 @@ const ytVideoSlice = createSlice({
   name: "videoSlice",
   initialState: {
     videosData: {
-      videos: [],
+      items: [],
       nextPageToken: null,
     },
   },

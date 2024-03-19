@@ -4,7 +4,7 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const PrivateRoutes = () => {
   const uid = useSelector((store) => store?.auth?.uid?.uid);
-  console.log(uid);
+  // console.log(uid);
 
   return uid ? <Outlet /> : <Navigate to={"/login"} />;
 };

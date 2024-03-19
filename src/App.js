@@ -12,7 +12,7 @@ import PrivateRoutes from "./utility/PrivateRoutes";
 
 function Layout({ children }) {
   const authUser = useSelector((store) => store?.auth?.uid);
-  console.log(authUser);
+  // console.log(authUser);
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const handleToggleSidebar = () => setToggleSidebar((value) => !value);
 

@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 const HomePage = () => {
   const videosData = useSelector((store) => store.videos.videosData);
-  console.log(videosData);
+  // console.log(videosData);
   useFetchData();
   return (
     <>

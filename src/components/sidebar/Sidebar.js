@@ -12,7 +12,7 @@ import {
 import "./_sidebar.scss";
 
 const Sidebar = ({ toggleSidebar, handleToggleSidebar }) => {
-  console.log(toggleSidebar);
+  // console.log(toggleSidebar);
   return (
     <nav className={toggleSidebar ? "sidebar open" : "sidebar"}>
       <li onClick={() => handleToggleSidebar(false)}>
