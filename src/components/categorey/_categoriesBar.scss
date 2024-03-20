@@ -1,36 +1,43 @@
 @import "../../base.scss";
 
-.categoriesBar {
-  padding: 0.5rem 0;
-  font-size: 0.8rem;
-  position: relative;
+.categoriesBarContainer {
+  position: fixed;
   top: 10vh;
-
-  display: flex;
   overflow-x: scroll;
-
+  width: 81.5vw;
+  z-index: 999;
   &::-webkit-scrollbar {
     width: 0px;
   }
+  background-color: #16181b;
   scrollbar-width: none;
 
-  span {
-    margin-right: 1rem;
-    padding: 0.5rem;
+  .categoriesBar {
+    padding: 0.5rem 0;
+    font-size: 0.8rem;
 
-    white-space: nowrap;
-    border: 1.5px solid $text-color;
-    border-radius: 999px;
-    cursor: pointer;
+    display: flex;
 
-    &:hover {
-      background-color: #374a59;
-    }
+    background-color: #16181b;
 
-    &.active {
-      color: #fff;
-      background-color: #606060;
-      border-color: $border-color;
+    span {
+      margin-right: 1rem;
+      padding: 0.5rem;
+
+      white-space: nowrap;
+      border: 1.5px solid $text-color;
+      border-radius: 999px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #374a59;
+      }
+
+      &.active {
+        color: #fff;
+        background-color: #606060;
+        border-color: $border-color;
+      }
     }
   }
 }

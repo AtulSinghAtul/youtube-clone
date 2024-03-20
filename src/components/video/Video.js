@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./_video.scss";
 import { AiFillEye } from "react-icons/ai";
 import numeral from "numeral";
 import moment from "moment";
-import { API_KEY, YT_POPULAR_VIDEOS_BASE_API } from "../../utility/constant";
-import axios from "axios";
+
+import useChannelIcons from "../../hooks/useChannelIcons";
+import useDurationAndViewCount from "../../hooks/useDurationAndViewCount";
 
 const Video = ({ item }) => {
-  const [channelDp, setChannelDp] = useState(null);
-  const [__duration, setDuration] = useState(null);
-  const [viewCount, setViewCount] = useState(4567890);
-
   const {
     id,
     snippet: {
@@ -25,53 +22,22 @@ const Video = ({ item }) => {
     },
   } = item;
 
+  //////////////////////////////////////////////////
+  //^ data comes from videos api
+  const { __duration, viewCount } = useDurationAndViewCount(id);
+  console.log(__duration, viewCount);
+
+  ////////////////////////////////////////////////////
   //* changed time stamp into minute and second
   const seconds = moment.duration(__duration).asSeconds();
   const _duration = moment.utc(seconds * 1000).format("mm:ss");
 
-  useEffect(() => {
-    channelIcon();
-  }, []);
-
-  async function channelIcon() {
-    const data = await axios.get(YT_POPULAR_VIDEOS_BASE_API + "channels", {
-      params: {
-        part: "snippet",
-        id: channelId,
-        key: API_KEY,
-      },
-    });
-
-    setChannelDp(data?.data?.items[0]?.snippet?.thumbnails?.medium?.url);
-  }
   //////////////////////////////////////////////////
-  useEffect(() => {
-    fetchData();
-  }, []);
 
-  const _videoId = id?.videoId || id;
+  //^ Data comes from channels api
+  const channelDp = useChannelIcons(channelId);
+  console.log(channelDp);
 
-  async function fetchData() {
-    await axios
-      .get(YT_POPULAR_VIDEOS_BASE_API + "videos", {
-        params: {
-          part: "contentDetails,statistics",
-          id: _videoId,
-          key: API_KEY,
-        },
-      })
-      .then((response) => {
-        const { contentDetails, statistics } = response.data.items[0];
-        setDuration(contentDetails?.duration);
-        setViewCount(statistics?.viewCount);
-        // console.log(contentDetails.duration);
-        // console.log(statistics.viewCount);
-        // console.log(response);
-      })
-      .catch((error) => console.log(error));
-  }
-
-  // console.log(item);
   return (
     <div className="video ">
       <div className="video__top">
