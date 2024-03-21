@@ -8,6 +8,7 @@ import useChannelIcons from "../../hooks/useChannelIcons";
 import useDurationAndViewCount from "../../hooks/useDurationAndViewCount";
 
 const Video = ({ item }) => {
+  console.log(item);
   const {
     id,
     snippet: {
@@ -25,7 +26,7 @@ const Video = ({ item }) => {
   //////////////////////////////////////////////////
   //^ data comes from videos api
   const { __duration, viewCount } = useDurationAndViewCount(id);
-  console.log(__duration, viewCount);
+  // console.log(__duration, viewCount);
 
   ////////////////////////////////////////////////////
   //* changed time stamp into minute and second
@@ -36,12 +37,12 @@ const Video = ({ item }) => {
 
   //^ Data comes from channels api
   const channelDp = useChannelIcons(channelId);
-  console.log(channelDp);
+  // console.log(channelDp);
 
   return (
     <div className="video ">
       <div className="video__top">
-        <img src={url} alt="thumbnail-img" />
+        <img src={url} loading="lazy" alt="thumbnail-img" />
         <span className="video__top__duration">{_duration}</span>
       </div>
       <title className="video__title">{title}</title>
@@ -52,7 +53,7 @@ const Video = ({ item }) => {
         <span>{moment(publishedAt).fromNow()}</span>
       </div>
       <div className="video__channel">
-        <img src={channelDp} alt="channel-dp" />
+        <img src={channelDp} loading="lazy" alt="channel-dp" />
         <p>{channelTitle}</p>
       </div>
     </div>

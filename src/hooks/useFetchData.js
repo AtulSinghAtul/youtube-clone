@@ -37,10 +37,18 @@ const useFetchData = () => {
           .then((response) => {
             const { items, nextPageToken } = response.data;
 
-            setVideoData({ items: items, nextPageToken: nextPageToken });
+            setVideoData({
+              items: items,
+              nextPageToken: nextPageToken,
+              activeElement: "All",
+            });
 
             dispatch(
-              addVideosData({ items: items, nextPageToken: nextPageToken })
+              addVideosData({
+                items: items,
+                nextPageToken: nextPageToken,
+                activeElement: "All",
+              })
             );
 
             console.log(response?.data);

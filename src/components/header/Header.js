@@ -10,6 +10,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../utility/firebase";
 import { removeAuthData } from "../../utility/slices/authSlice";
 import { PiUserCirclePlusLight, PiUserCircleMinusLight } from "react-icons/pi";
+import { removeVideosData } from "../../utility/slices/videosSlice";
 
 const Header = ({ handleToggleSidebar }) => {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const Header = ({ handleToggleSidebar }) => {
       .then(() => {
         // Sign-out successful.
         dispatch(removeAuthData());
+        dispatch(removeVideosData());
         //* remove session storage
         sessionStorage.removeItem("y_uid");
         sessionStorage.removeItem("y_displayName");

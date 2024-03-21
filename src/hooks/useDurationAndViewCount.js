@@ -27,7 +27,7 @@ const useDurationAndViewCount = (id) => {
           setDuration(contentDetails?.duration);
           setViewCount(statistics?.viewCount);
 
-          console.log("calling videos api first time");
+          // console.log("calling videos api first time");
         })
         .catch((error) => console.log(error));
     }

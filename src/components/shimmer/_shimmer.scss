@@ -1,0 +1,40 @@
+.shimmer_container {
+  margin: 40px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+
+  .shimmer_parent {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .shimmer_child {
+    width: 280px;
+    height: 180px;
+    background-color: #6c6c6b;
+    border-radius: 10px;
+  }
+  .shimmer_dp_title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+
+    .shimmer_dp {
+      width: 40px;
+      height: 40px;
+      background-color: #6c6c6b;
+      border-radius: 100%;
+    }
+    .shimmer_title {
+      width: 230px;
+      height: 50px;
+      background-color: #6c6c6b;
+      border-radius: 10px;
+    }
+  }
+}

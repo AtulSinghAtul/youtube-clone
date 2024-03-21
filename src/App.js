@@ -9,6 +9,7 @@ import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 // import { MdPrivateConnectivity } from "react-icons/md";
 import PrivateRoutes from "./utility/PrivateRoutes";
+import WatchPage from "./pages/watchPage/WatchPage";
 
 function Layout({ children }) {
   const authUser = useSelector((store) => store?.auth?.uid);
@@ -56,6 +57,16 @@ function App() {
         </Route>
 
         <Route path={"/login"} element={<LoginPage />} />
+
+        <Route
+          path={"/watch/:id"}
+          element={
+            <Layout>
+              <WatchPage />
+            </Layout>
+          }
+        />
+
         <Route
           path="*"
           element={

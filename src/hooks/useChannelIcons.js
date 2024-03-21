@@ -18,7 +18,7 @@ const useChannelIcons = (channelId) => {
       },
     });
 
-    console.log("first time channel icon call");
+    // console.log("first time channel icon call");
     setChannelDp(data?.data?.items[0]?.snippet?.thumbnails?.medium?.url);
     localStorage.setItem(
       "yt-channel-icon",

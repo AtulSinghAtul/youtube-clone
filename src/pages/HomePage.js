@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Video from "../components/video/Video";
 import CategoreyBar from "../components/categorey/CategoreyBar";
@@ -7,38 +7,90 @@ import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 import axios from "axios";
 import { API_KEY, YT_POPULAR_VIDEOS_BASE_API } from "../utility/constant";
-import { addVideosData } from "../utility/slices/videosSlice";
+import { addVideosData, removeVideosData } from "../utility/slices/videosSlice";
+import Shimmer from "../components/shimmer/Shimmer";
 
 const HomePage = () => {
   const dispatch = useDispatch();
   const videosData = useSelector((store) => store.videos.videosData);
-  useFetchData();
+
+  const { activeElement, nextPageToken } = videosData;
   console.log(videosData);
+  // useFetchData();
+  // console.log(videosData);
+  // console.log(videosData?.nextPageToken);
+
+  useEffect(() => {
+    // Create an instance of the AbortController API to abort the fetch request
+    const controller = new AbortController();
+    fetchData();
+    return () => {
+      controller.abort();
+    };
+  }, []);
 
   async function fetchData() {
-    await axios
-      .get(YT_POPULAR_VIDEOS_BASE_API + "videos", {
-        params: {
-          part: "snippet,contentDetails,statistics",
-          chart: "mostPopular",
-          regionCode: "IN",
-          maxResults: 20,
-          pageToken: videosData?.nextPageToken,
-          key: API_KEY,
-        },
-      })
-      .then((response) => {
-        const { items, nextPageToken } = response.data;
+    // dispatch(removeVideosData());
+    if (activeElement === "All") {
+      await axios
+        .get(YT_POPULAR_VIDEOS_BASE_API + "videos", {
+          params: {
+            part: "snippet,contentDetails,statistics",
+            chart: "mostPopular",
+            regionCode: "IN",
+            maxResults: 20,
+            pageToken: videosData?.nextPageToken,
+            key: API_KEY,
+          },
+        })
+        .then((response) => {
+          const { items, nextPageToken } = response.data;
 
-        dispatch(addVideosData({ items: items, nextPageToken: nextPageToken }));
+          dispatch(
+            addVideosData({
+              items: items,
+              nextPageToken: nextPageToken,
+              activeElement: activeElement,
+            })
+          );
 
-        console.log(response?.data);
-      })
-      .catch((error) => {
-        console.log(error);
-        console.log(error.message);
-      });
+          // console.log(response?.data);
+        })
+        .catch((error) => {
+          console.log(error);
+          console.log(error.message);
+        });
+    } else if (activeElement !== "All") {
+      async function categoreyBar() {
+        const data = await axios.get(YT_POPULAR_VIDEOS_BASE_API + "search", {
+          params: {
+            part: "snippet",
+            type: "video",
+            maxResults: 20,
+            q: activeElement,
+            pageToken: nextPageToken,
+            key: API_KEY,
+          },
+        });
+
+        dispatch(
+          addVideosData({
+            categoreyItems: data.data.items,
+            nextPageToken: data.data.nextPageToken,
+            activeElement: activeElement,
+          })
+        );
+        console.log(data.data.items);
+      }
+      categoreyBar();
+    }
   }
+
+  console.log(videosData?.items.length);
+
+  //! conditional rendering
+
+  if (videosData.items.length === 0) return <Shimmer />;
 
   return (
     <>

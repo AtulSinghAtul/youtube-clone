@@ -1,0 +1,85 @@
+@import "../../_base.scss";
+.videoMetaData {
+  &__top {
+    span {
+      cursor: pointer;
+    }
+  }
+
+  &__channel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 0.2px solid $border-color;
+    border-bottom: 0.2px solid $border-color;
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 100%;
+    }
+
+    button {
+      background-color: #fff;
+      color: #000;
+      border-radius: 20px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      padding: 8px 18px;
+      font-size: 13px;
+      &.btn-gray {
+        background-color: gray;
+      }
+      &:hover {
+        background-color: rgb(207, 206, 206);
+      }
+      &:focus {
+        border: none;
+        outline: none;
+      }
+    }
+
+    .channel_dp {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      gap: 8px;
+    }
+    .channel_name {
+      display: flex;
+      flex-direction: column;
+      margin-right: 15px;
+
+      p {
+        font-size: 12px;
+      }
+
+      h6 {
+        color: #fff;
+        font-weight: 900;
+      }
+    }
+    .like_unlike_btn:nth-child(4) {
+      background-color: #aeaeae;
+    }
+  }
+  &__description {
+    font-size: 0.9rem;
+    white-space: pre-line;
+    border-bottom: 0.2px solid $border-color;
+    .showMoreText {
+      text-decoration: none;
+      display: block;
+      margin: 1rem 0;
+      color: #fff;
+      font-weight: 500;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-small) {
+  .videoMetaData {
+    h5 {
+      font-size: 1.1rem;
+    }
+  }
+}
