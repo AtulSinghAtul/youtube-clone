@@ -59,7 +59,7 @@ function App() {
         <Route path={"/login"} element={<LoginPage />} />
 
         <Route
-          path={"/watch/:id"}
+          path={"/watch"}
           element={
             <Layout>
               <WatchPage />

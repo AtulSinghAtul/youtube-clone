@@ -8,7 +8,7 @@ import useChannelIcons from "../../hooks/useChannelIcons";
 import useDurationAndViewCount from "../../hooks/useDurationAndViewCount";
 
 const Video = ({ item }) => {
-  console.log(item);
+  // console.log(item?.snippet?.channelId);
   const {
     id,
     snippet: {

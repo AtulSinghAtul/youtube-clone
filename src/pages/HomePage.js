@@ -9,6 +9,8 @@ import axios from "axios";
 import { API_KEY, YT_POPULAR_VIDEOS_BASE_API } from "../utility/constant";
 import { addVideosData, removeVideosData } from "../utility/slices/videosSlice";
 import Shimmer from "../components/shimmer/Shimmer";
+import { Link } from "react-router-dom";
+import { watchPageVideoData } from "../utility/slices/watchSlice";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -88,6 +90,11 @@ const HomePage = () => {
 
   console.log(videosData?.items.length);
 
+  function handleClick(item) {
+    console.log(item);
+    dispatch(watchPageVideoData(item));
+  }
+
   //! conditional rendering
 
   if (videosData.items.length === 0) return <Shimmer />;
@@ -108,7 +115,13 @@ const HomePage = () => {
           <Row>
             {videosData?.items?.map((item) => (
               <Col lg={3} md={4} key={item.id}>
-                <Video item={item} />
+                <Link
+                  to={
+                    "/watch?v=" + item?.id + "/?c=" + item?.snippet?.channelId
+                  }
+                >
+                  <Video item={item} onClick={handleClick(item)} />
+                </Link>
               </Col>
             ))}
           </Row>

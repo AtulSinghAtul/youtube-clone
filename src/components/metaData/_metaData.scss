@@ -12,6 +12,7 @@
     align-items: center;
     border-top: 0.2px solid $border-color;
     border-bottom: 0.2px solid $border-color;
+
     img {
       width: 50px;
       height: 50px;
@@ -43,6 +44,7 @@
       justify-content: start;
       align-items: center;
       gap: 8px;
+      margin: 10px 0;
     }
     .channel_name {
       display: flex;
@@ -58,14 +60,39 @@
         font-weight: 900;
       }
     }
-    .like_unlike_btn:nth-child(4) {
-      background-color: #aeaeae;
+    .like_unlike_btn {
+      display: flex;
+      gap: 8px;
+
+      .like_unlike_btn,
+      .like_unlike_btn-1,
+      .like_unlike_btn-2,
+      .like_unlike_btn-3,
+      .like_unlike_btn-4 {
+        display: flex;
+        gap: 8px;
+        background-color: #424242;
+        padding: 4px 8px;
+        border-radius: 20px;
+        font-size: 15px;
+        color: #fff;
+      }
+      span:hover {
+        background-color: #4d4d4d;
+        cursor: pointer;
+      }
     }
   }
   &__description {
     font-size: 0.9rem;
     white-space: pre-line;
     border-bottom: 0.2px solid $border-color;
+    color: #fff;
+
+    div {
+      margin-top: 12px;
+    }
+
     .showMoreText {
       text-decoration: none;
       display: block;
