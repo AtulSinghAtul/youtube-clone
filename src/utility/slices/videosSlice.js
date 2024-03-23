@@ -22,7 +22,7 @@ const ytVideoSlice = createSlice({
         state.videosData.nextPageToken = nextPageToken;
         state.videosData.activeElement = activeElement;
       } else {
-        console.log(items);
+        // console.log(items);
         state.videosData.items.push(...items);
         state.videosData.nextPageToken = nextPageToken;
         state.videosData.activeElement = "All";

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const watchPageSlice = createSlice({
   name: "watch",
@@ -7,8 +7,9 @@ const watchPageSlice = createSlice({
   },
   reducers: {
     watchPageVideoData: (state, action) => {
-      console.log(action.payload);
-      state.watchPage = action.payload;
+      // console.log(current(state));
+
+      state.watchPageData = action.payload;
     },
   },
 });

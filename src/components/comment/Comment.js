@@ -1,7 +1,13 @@
 import React from "react";
 
 const Comment = () => {
-  return <div>Comment</div>;
+  return (
+    <div>
+      <div>
+        <img src="" alt="channel_dp" />
+      </div>
+    </div>
+  );
 };
 
 export default Comment;

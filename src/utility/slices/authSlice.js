@@ -17,6 +17,7 @@ const authSlice = createSlice({
   },
   reducers: {
     addAuthData: (state, action) => {
+      console.log(action.payload);
       return action.payload;
     },
     removeAuthData: () => {

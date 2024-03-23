@@ -17,10 +17,7 @@ const HomePage = () => {
   const videosData = useSelector((store) => store.videos.videosData);
 
   const { activeElement, nextPageToken } = videosData;
-  console.log(videosData);
-  // useFetchData();
   // console.log(videosData);
-  // console.log(videosData?.nextPageToken);
 
   useEffect(() => {
     // Create an instance of the AbortController API to abort the fetch request
@@ -88,10 +85,10 @@ const HomePage = () => {
     }
   }
 
-  console.log(videosData?.items.length);
+  // console.log(videosData?.items.length);
 
   function handleClick(item) {
-    console.log(item);
+    // console.log(item);
     dispatch(watchPageVideoData(item));
   }
 

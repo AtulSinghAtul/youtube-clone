@@ -9,28 +9,44 @@ import axios from "axios";
 import { API_KEY, YT_POPULAR_VIDEOS_BASE_API } from "../../utility/constant";
 
 const WatchPage = () => {
-  const [watchPageData, setwatchPageData] = useState(null);
-  console.log(watchPageData);
-  // const items = useSelector((store) => store.videos.videosData?.items);
-  // console.log(items);
-
-  const [searchParams, setSearchParams] = useSearchParams();
-  const videoId = searchParams.get("v");
+  const [subscriber, setSubscriber] = useState(null);
+  const [itemData, setItemData] = useState(null);
 
   const channelId = useLocation();
+  const videoId = channelId.search.split("/")[0].slice(3);
   const channelsId = channelId.search.split("?c=")[1];
+  // console.log(channelsId);
+  // console.log(videoId);
+
+  useEffect(() => {
+    axios
+      .get(YT_POPULAR_VIDEOS_BASE_API + "videos", {
+        params: {
+          part: "snippet,contentDetails,statistics",
+          id: videoId,
+          key: API_KEY,
+        },
+      })
+      .then((res) => {
+        // console.log(res);
+        setItemData(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [videoId]);
 
   useEffect(() => {
     axios
       .get(
-        "https://www.googleapis.com/youtube/v3/channels?part=statistics%2CcontentDetails%2Csnippet&id=" +
+        "https://www.googleapis.com/youtube/v3/channels?part=statistics&id=" +
           channelsId +
           "&key=" +
           API_KEY
       )
       .then((res) => {
         const { items } = res?.data;
-        setwatchPageData(items);
+        setSubscriber(items);
       })
       .catch((err) => {
         console.log(err);
@@ -52,8 +68,8 @@ const WatchPage = () => {
               allowFullScreen
             ></iframe>
           </div>
-          {watchPageData ? (
-            <MetaData items={watchPageData} />
+          {subscriber ? (
+            <MetaData subscriber={subscriber} itemData={itemData} />
           ) : (
             <h2>Loading....</h2>
           )}

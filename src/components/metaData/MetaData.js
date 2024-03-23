@@ -1,10 +1,25 @@
 import React from "react";
 import "./_metaData.scss";
 import { useSelector } from "react-redux";
+import numeral from "numeral";
+import moment from "moment";
+import { Link } from "react-router-dom";
 
-const MetaData = ({ items }) => {
-  console.log(items[0]);
-  const { title, channelTitle } = items[0]?.snippet;
+const MetaData = ({ subscriber, itemData }) => {
+  const { subscriberCount } = subscriber[0].statistics;
+
+  // console.log(itemData?.data?.items[0]);
+  const {
+    snippet: {
+      title,
+      channelTitle,
+      publishedAt,
+      tags,
+      localized: { description },
+    },
+    statistics: { likeCount, viewCount },
+  } = itemData?.data?.items[0];
+
   return (
     <div className="py-2 videoMetaData">
       <div className="videoMetaData__top">
@@ -19,14 +34,14 @@ const MetaData = ({ items }) => {
           />
           <div className="channel_name">
             <h6>{channelTitle}</h6>
-            <p>170M subscribers</p>
+            <p>{numeral(subscriberCount).format("0.a")} subscribers</p>
           </div>
           <button>Subscribe</button>
         </div>
 
         <div className="like_unlike_btn">
           <span className="like_unlike_btn-1">
-            <span>👍8.5K</span>|<span>👎</span>
+            <span>👍{numeral(likeCount).format("0.a")}</span>|<span>👎</span>
           </span>
           <span className="like_unlike_btn-2">📤 Share</span>
           <span className="like_unlike_btn-3">⬇️ Download</span>
@@ -36,18 +51,19 @@ const MetaData = ({ items }) => {
 
       <div className="videoMetaData__description">
         <div>
-          <span>431075 views</span>
-          <span>22hours ago</span>
-          <span>#amangupta #PeyushBansal #NamitaThapar</span>
+          {/* {numeral(viewCount).format(""0,0.00"")} */}
+          <span>{numeral(viewCount).format("0,0")} views</span>{" "}
+          <span>{moment(publishedAt).format("MMMM DD, YYYY")}</span>{" "}
+          <span>
+            #{tags[0]} #{tags[2]} #{tags[8]}
+          </span>
         </div>
         <span>
-          Click here to Subscribe to SET India:{" "}
-          <a href="#">https://www.youtube.com/channel/UCpEh...</a>
+          {title}:<Link to="#">https://www.youtube.com/channel/UCpEh...</Link>
         </span>
 
         <div>
-          NEMA AI optimizes learning experience, enhancing memory, attention,
-          and problem-solving skills whil{" "}
+          {description}
           <span className="showMoreText">….more</span>
         </div>
       </div>
