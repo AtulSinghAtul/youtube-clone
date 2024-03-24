@@ -1,9 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const authSlice = createSlice({
   name: "auth",
   initialState: {
     uid: {
+      token: sessionStorage.getItem("y_token")
+        ? sessionStorage.getItem("y_token")
+        : null,
       uid: sessionStorage.getItem("y_uid")
         ? sessionStorage.getItem("y_uid")
         : null,
@@ -17,6 +20,7 @@ const authSlice = createSlice({
   },
   reducers: {
     addAuthData: (state, action) => {
+      // console.log(current(state));
       console.log(action.payload);
       return action.payload;
     },

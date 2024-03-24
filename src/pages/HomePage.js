@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Video from "../components/video/Video";
 import CategoreyBar from "../components/categorey/CategoreyBar";
@@ -91,6 +91,10 @@ const HomePage = () => {
     // console.log(item);
     dispatch(watchPageVideoData(item));
   }
+
+  // function hideSidebar() {
+  //   dispatch(hideSidebar(true));
+  // }
 
   //! conditional rendering
 

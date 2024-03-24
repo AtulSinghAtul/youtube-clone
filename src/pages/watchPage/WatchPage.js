@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import MetaData from "../../components/metaData/MetaData";
-import Comment from "../../components/comment/Comment";
+import Comments from "../../components/comments/Comments";
 import HorizontalSuggestion from "../../components/horizontalSuggestion/HorizontalSuggestion";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 // import { useSelector } from "react-redux";
@@ -15,8 +15,6 @@ const WatchPage = () => {
   const channelId = useLocation();
   const videoId = channelId.search.split("/")[0].slice(3);
   const channelsId = channelId.search.split("?c=")[1];
-  // console.log(channelsId);
-  // console.log(videoId);
 
   useEffect(() => {
     axios
@@ -39,7 +37,7 @@ const WatchPage = () => {
   useEffect(() => {
     axios
       .get(
-        "https://www.googleapis.com/youtube/v3/channels?part=statistics&id=" +
+        "https://www.googleapis.com/youtube/v3/channels?part=statistics,snippet&id=" +
           channelsId +
           "&key=" +
           API_KEY
@@ -69,11 +67,15 @@ const WatchPage = () => {
             ></iframe>
           </div>
           {subscriber ? (
-            <MetaData subscriber={subscriber} itemData={itemData} />
+            <MetaData
+              channelId={channelsId}
+              subscriber={subscriber}
+              itemData={itemData}
+            />
           ) : (
             <h2>Loading....</h2>
           )}
-          <Comment />
+          <Comments />
         </Col>
         <Col lg={4}>
           {[...new Array(20)].map((index) => (

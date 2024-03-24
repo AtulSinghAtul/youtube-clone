@@ -24,16 +24,23 @@ const LoginPage = () => {
   console.log(errorMessage);
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
+      console.log(user);
       if (user) {
-        const { uid, displayName, email } = user;
+        const { uid, displayName, email, accessToken } = user;
         dispatch(
           addAuthData({
-            uid: { uid: uid, email: email, displayName: displayName },
+            uid: {
+              token: accessToken,
+              uid: uid,
+              email: email,
+              displayName: displayName,
+            },
           })
         );
 
         //* stored user data into session storage
         sessionStorage.setItem("y_uid", uid);
+        sessionStorage.setItem("y_token", accessToken);
         sessionStorage.setItem("y_email", email);
         sessionStorage.setItem("y_displayName", displayName);
         navigate("/");

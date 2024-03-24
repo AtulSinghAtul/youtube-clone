@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./_metaData.scss";
 import { useSelector } from "react-redux";
 import numeral from "numeral";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { API_KEY, YT_POPULAR_VIDEOS_BASE_API } from "../../utility/constant";
 
-const MetaData = ({ subscriber, itemData }) => {
-  const { subscriberCount } = subscriber[0].statistics;
+const MetaData = ({ subscriber, itemData, channelId }) => {
+  console.log(channelId);
+  const { uid } = useSelector((store) => store.auth);
+  console.log(uid?.token);
+  const {
+    snippet,
+    statistics: { subscriberCount },
+  } = subscriber[0];
 
-  // console.log(itemData?.data?.items[0]);
+  const url = snippet?.thumbnails?.medium?.url;
+
   const {
     snippet: {
       title,
@@ -20,6 +29,31 @@ const MetaData = ({ subscriber, itemData }) => {
     statistics: { likeCount, viewCount },
   } = itemData?.data?.items[0];
 
+  console.log(snippet);
+
+  useEffect(() => {
+    handleSubcriptions();
+  }, []);
+
+  function handleSubcriptions() {
+    axios
+      .get(YT_POPULAR_VIDEOS_BASE_API + "subscriptions", {
+        params: {
+          part: "snippet",
+          forChannelId: "UC_gXhnzeF5_XIFn4gx_bocg",
+          mine: true,
+        },
+        headers: { Authorization: `Bearer ${uid?.token}` },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  // console.log(url);
   return (
     <div className="py-2 videoMetaData">
       <div className="videoMetaData__top">
@@ -28,15 +62,12 @@ const MetaData = ({ subscriber, itemData }) => {
 
       <div className="videoMetaData__channel">
         <div className="channel_dp">
-          <img
-            src="https://img.freepik.com/free-vector/colorful-bird-illustration-gradient_343694-1741.jpg?w=740&t=st=1711035713~exp=1711036313~hmac=a9cdc0829ffc2f12d463efc7ff4645a64ea0ad0e0de0394abc541704ee1cb30c"
-            alt="dp_img"
-          />
+          <img src={url} alt="dp_img" />
           <div className="channel_name">
             <h6>{channelTitle}</h6>
             <p>{numeral(subscriberCount).format("0.a")} subscribers</p>
           </div>
-          <button>Subscribe</button>
+          <button onClick={handleSubcriptions}>Subscribe</button>
         </div>
 
         <div className="like_unlike_btn">
@@ -51,7 +82,6 @@ const MetaData = ({ subscriber, itemData }) => {
 
       <div className="videoMetaData__description">
         <div>
-          {/* {numeral(viewCount).format(""0,0.00"")} */}
           <span>{numeral(viewCount).format("0,0")} views</span>{" "}
           <span>{moment(publishedAt).format("MMMM DD, YYYY")}</span>{" "}
           <span>

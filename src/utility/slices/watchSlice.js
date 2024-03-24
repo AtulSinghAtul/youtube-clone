@@ -4,6 +4,7 @@ const watchPageSlice = createSlice({
   name: "watch",
   initialState: {
     watchPageData: null,
+    // hideSidebar: true,
   },
   reducers: {
     watchPageVideoData: (state, action) => {
@@ -11,9 +12,14 @@ const watchPageSlice = createSlice({
 
       state.watchPageData = action.payload;
     },
+
+    // hideSidebar: (state, action) => {
+    //   current(state.hideSidebar);
+    //   state.hideSidebar = !action.payload;
+    // },
   },
 });
 
-export const { watchPageVideoData } = watchPageSlice.actions;
+export const { watchPageVideoData, hideSidebar } = watchPageSlice.actions;
 
 export default watchPageSlice.reducer;

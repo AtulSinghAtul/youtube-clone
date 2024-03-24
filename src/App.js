@@ -13,7 +13,8 @@ import WatchPage from "./pages/watchPage/WatchPage";
 
 function Layout({ children }) {
   const authUser = useSelector((store) => store?.auth?.uid);
-  // console.log(authUser);
+  // const hideSidebar = useSelector((store) => store.watchPage.hideSidebar);
+  // console.log(hideSidebar);
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const handleToggleSidebar = () => setToggleSidebar((value) => !value);
 
@@ -25,6 +26,7 @@ function Layout({ children }) {
           toggleSidebar={toggleSidebar}
           handleToggleSidebar={handleToggleSidebar}
         />
+
         <Container fluid className="app_main">
           {children}
         </Container>
