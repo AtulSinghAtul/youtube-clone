@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./_metaData.scss";
 import { useSelector } from "react-redux";
 import numeral from "numeral";
@@ -8,9 +8,11 @@ import axios from "axios";
 import { API_KEY, YT_POPULAR_VIDEOS_BASE_API } from "../../utility/constant";
 
 const MetaData = ({ subscriber, itemData, channelId }) => {
+  ///////////////////////////////////////
   console.log(channelId);
-  const { uid } = useSelector((store) => store.auth);
-  console.log(uid?.token);
+  const { uid } = useSelector((store) => store?.auth);
+  const { token } = uid;
+  console.log(token);
   const {
     snippet,
     statistics: { subscriberCount },
@@ -29,7 +31,7 @@ const MetaData = ({ subscriber, itemData, channelId }) => {
     statistics: { likeCount, viewCount },
   } = itemData?.data?.items[0];
 
-  console.log(snippet);
+  // console.log(snippet);
 
   useEffect(() => {
     handleSubcriptions();
@@ -43,9 +45,12 @@ const MetaData = ({ subscriber, itemData, channelId }) => {
           forChannelId: "UC_gXhnzeF5_XIFn4gx_bocg",
           mine: true,
         },
-        headers: { Authorization: `Bearer ${uid?.token}` },
+        headers: {
+          Authorization: `Bearer ${"ya29.a0Ad52N3-GWLr-lf5GropV-IQBd8oJquXcobIOCvxsZrw8E2c7bvcJBEurqUhLHOM-n1E2iGTQXbOemmxb9PxhSaOwE9wdMqvXXg1EOuhhqwzUIAv4AEFcWDYFdBZASoQfMmFR4VvkAOe6kxqWMrxWFPoK0J25OwaxNZsaCgYKAYcSARESFQHGX2MibMjpDivCfnK13qkMVhbXgQ0170"}`,
+        },
       })
       .then((res) => {
+        // ya29.a0Ad52N3-GWLr-lf5GropV-IQBd8oJquXcobIOCvxsZrw8E2c7bvcJBEurqUhLHOM-n1E2iGTQXbOemmxb9PxhSaOwE9wdMqvXXg1EOuhhqwzUIAv4AEFcWDYFdBZASoQfMmFR4VvkAOe6kxqWMrxWFPoK0J25OwaxNZsaCgYKAYcSARESFQHGX2MibMjpDivCfnK13qkMVhbXgQ0170
         console.log(res);
       })
       .catch((err) => {
@@ -53,7 +58,6 @@ const MetaData = ({ subscriber, itemData, channelId }) => {
       });
   }
 
-  // console.log(url);
   return (
     <div className="py-2 videoMetaData">
       <div className="videoMetaData__top">
