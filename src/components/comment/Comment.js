@@ -1,16 +1,31 @@
 import moment from "moment";
-import React from "react";
+import React, { useEffect } from "react";
 import "./_comment.scss";
+import axios from "axios";
+import { YT_POPULAR_VIDEOS_BASE_API } from "../../utility/constant";
 
-const Comment = () => {
+const Comment = ({ commentData }) => {
+  const {
+    snippet: {
+      topLevelComment: {
+        snippet: {
+          authorProfileImageUrl,
+          authorDisplayName,
+          publishedAt,
+          textDisplay,
+        },
+      },
+    },
+  } = commentData;
+  // console.log(commentData);
   return (
-    <div className="p-2 comment d-flex">
-      <img src="" alt="img" className="mr-3 rounded-circle" />
-      <div className="comment__body">
+    <div className="p-2 comment d-flex ">
+      <img src={authorProfileImageUrl} alt="img" className="rounded-circle" />
+      <div className="comment__body ">
         <p className="mb-1 comment__header">
-          authorDisplayName • {moment(67675).fromNow()}
+          {authorDisplayName} • {moment(publishedAt).fromNow()}
         </p>
-        <p className="mb-0">textDisplay</p>
+        <p className="mb-0">{textDisplay}</p>
       </div>
     </div>
   );

@@ -3,14 +3,14 @@ import { Col, Row } from "react-bootstrap";
 import MetaData from "../../components/metaData/MetaData";
 import Comments from "../../components/comments/Comments";
 import HorizontalSuggestion from "../../components/horizontalSuggestion/HorizontalSuggestion";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
-// import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { API_KEY, YT_POPULAR_VIDEOS_BASE_API } from "../../utility/constant";
 
 const WatchPage = () => {
   const [subscriber, setSubscriber] = useState(null);
   const [itemData, setItemData] = useState(null);
+  console.log(subscriber);
 
   const channelId = useLocation();
   const videoId = channelId.search.split("/")[0].slice(3);
@@ -43,7 +43,7 @@ const WatchPage = () => {
           API_KEY
       )
       .then((res) => {
-        const { items } = res?.data;
+        const items = res?.data?.items;
         setSubscriber(items);
       })
       .catch((err) => {
@@ -75,7 +75,11 @@ const WatchPage = () => {
           ) : (
             <h2>Loading....</h2>
           )}
-          <Comments />
+          {subscriber === null ? (
+            <h1>data not found</h1>
+          ) : (
+            <Comments subscriber={subscriber} videoId={videoId} />
+          )}
         </Col>
         <Col lg={4}>
           {[...new Array(20)].map((index) => (

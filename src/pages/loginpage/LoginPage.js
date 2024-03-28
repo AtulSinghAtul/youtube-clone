@@ -7,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
+  getAdditionalUserInfo,
 } from "firebase/auth";
 import { auth } from "../../utility/firebase";
 import { useNavigate } from "react-router-dom";
@@ -32,10 +33,10 @@ const LoginPage = () => {
         dispatch(
           addAuthData({
             uid: {
-              token: accessToken,
               uid: uid,
               email: email,
               displayName: displayName,
+              token: accessToken,
             },
           })
         );
@@ -72,15 +73,15 @@ const LoginPage = () => {
           const user = userCredential.user;
 
           //* This gives you a Google Access Token. You can use it to access the Google API.
-          const credential =
-            GoogleAuthProvider.credentialFromResult(userCredential);
-          const token = credential.accessToken;
+          //const credential =
+          //   GoogleAuthProvider.credentialFromResult(userCredential);
+          // const token = credential.accessToken;
 
-          console.log(credential);
+          // console.log(credential);
 
           // const token = user.accessToken;
-          console.log(token);
-          console.log(user);
+          // console.log(token);
+          // console.log(user);
           navigate("/");
         })
         .catch((error) => {
@@ -94,14 +95,14 @@ const LoginPage = () => {
         .then((userCredential) => {
           console.log("signInWithEmailAndPassword");
           console.log(userCredential);
-          const credential =
-            GoogleAuthProvider.credentialFromResult(userCredential);
-          const token = credential.accessToken;
+          // const credential =
+          //   GoogleAuthProvider.credentialFromResult(userCredential);
+          // const token = credential.accessToken;
 
-          console.log(credential);
+          // console.log(credential);
           // const user = userCredential?.user;
           // const token = user.accessToken;
-          console.log(token);
+          // console.log(token);
           // console.log(user.getIdToken());
         })
         .catch((error) => {
@@ -127,10 +128,13 @@ const LoginPage = () => {
         console.log(credential);
         // The signed-in user info.
         console.log(token);
+
         const user = result.user;
         console.log(user);
         // IdP data available using getAdditionalUserInfo(result)
         // ...
+        const res = getAdditionalUserInfo(result);
+        console.log(res);
       })
       .catch((error) => {
         // Handle Errors here.

@@ -33,30 +33,30 @@ const MetaData = ({ subscriber, itemData, channelId }) => {
 
   // console.log(snippet);
 
-  useEffect(() => {
-    handleSubcriptions();
-  }, []);
+  // useEffect(() => {
+  //   handleSubcriptions();
+  // }, []);
 
-  function handleSubcriptions() {
-    axios
-      .get(YT_POPULAR_VIDEOS_BASE_API + "subscriptions", {
-        params: {
-          part: "snippet",
-          forChannelId: "UC_gXhnzeF5_XIFn4gx_bocg",
-          mine: true,
-        },
-        headers: {
-          Authorization: `Bearer ${"ya29.a0Ad52N3-GWLr-lf5GropV-IQBd8oJquXcobIOCvxsZrw8E2c7bvcJBEurqUhLHOM-n1E2iGTQXbOemmxb9PxhSaOwE9wdMqvXXg1EOuhhqwzUIAv4AEFcWDYFdBZASoQfMmFR4VvkAOe6kxqWMrxWFPoK0J25OwaxNZsaCgYKAYcSARESFQHGX2MibMjpDivCfnK13qkMVhbXgQ0170"}`,
-        },
-      })
-      .then((res) => {
-        // ya29.a0Ad52N3-GWLr-lf5GropV-IQBd8oJquXcobIOCvxsZrw8E2c7bvcJBEurqUhLHOM-n1E2iGTQXbOemmxb9PxhSaOwE9wdMqvXXg1EOuhhqwzUIAv4AEFcWDYFdBZASoQfMmFR4VvkAOe6kxqWMrxWFPoK0J25OwaxNZsaCgYKAYcSARESFQHGX2MibMjpDivCfnK13qkMVhbXgQ0170
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  // function handleSubcriptions() {
+  //   axios
+  //     .get(YT_POPULAR_VIDEOS_BASE_API + "subscriptions", {
+  //       params: {
+  //         part: "snippet",
+  //         forChannelId: "UC_gXhnzeF5_XIFn4gx_bocg",
+  //         mine: true,
+  //       },
+  //       headers: {
+  //         Authorization: `Bearer ${"ya29.a0Ad52N3-GWLr-lf5GropV-IQBd8oJquXcobIOCvxsZrw8E2c7bvcJBEurqUhLHOM-n1E2iGTQXbOemmxb9PxhSaOwE9wdMqvXXg1EOuhhqwzUIAv4AEFcWDYFdBZASoQfMmFR4VvkAOe6kxqWMrxWFPoK0J25OwaxNZsaCgYKAYcSARESFQHGX2MibMjpDivCfnK13qkMVhbXgQ0170"}`,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       // ya29.a0Ad52N3-GWLr-lf5GropV-IQBd8oJquXcobIOCvxsZrw8E2c7bvcJBEurqUhLHOM-n1E2iGTQXbOemmxb9PxhSaOwE9wdMqvXXg1EOuhhqwzUIAv4AEFcWDYFdBZASoQfMmFR4VvkAOe6kxqWMrxWFPoK0J25OwaxNZsaCgYKAYcSARESFQHGX2MibMjpDivCfnK13qkMVhbXgQ0170
+  //       console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
 
   return (
     <div className="py-2 videoMetaData">
@@ -71,7 +71,7 @@ const MetaData = ({ subscriber, itemData, channelId }) => {
             <h6>{channelTitle}</h6>
             <p>{numeral(subscriberCount).format("0.a")} subscribers</p>
           </div>
-          <button onClick={handleSubcriptions}>Subscribe</button>
+          <button>Subscribe</button>
         </div>
 
         <div className="like_unlike_btn">
